@@ -1,0 +1,236 @@
+package api
+
+import (
+	"net/http"
+	"net/http/httptest"
+	"strings"
+	"testing"
+
+	"github.com/lonelyday/cc/internal/httpclient"
+
+	"github.com/gin-gonic/gin"
+)
+
+func TestRates(t *testing.T) {
+	// given
+	t.Setenv("OER_APP_ID", "test_api_key")
+	testSrv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{
+  "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",
+  "license": "https://openexchangerates.org/license",
+  "timestamp": 1752685200,
+  "base": "USD",
+  "rates": {
+    "AED": 3.67305,
+    "AFN": 69,
+    "ALL": 83.55,
+    "AMD": 383.96,
+    "ANG": 1.79,
+    "AOA": 917,
+    "ARS": 1259.9892,
+    "AUD": 1.532398,
+    "AWG": 1.8,
+    "AZN": 1.7,
+    "BAM": 1.68439,
+    "BBD": 2,
+    "BDT": 121.326911,
+    "BGN": 1.67655,
+    "BHD": 0.377002,
+    "BIF": 2926,
+    "BMD": 1,
+    "BND": 1.28481,
+    "BOB": 6.911871,
+    "BRL": 5.5646,
+    "BSD": 1,
+    "BTC": 0.000008378089,
+    "BTN": 85.934078,
+    "BWP": 13.509546,
+    "BYN": 3.273295,
+    "BZD": 2.009161,
+    "CAD": 1.368967,
+    "CDF": 2886,
+    "CHF": 0.800536,
+    "CLF": 0.025206,
+    "CLP": 967.28,
+    "CNH": 7.181003,
+    "CNY": 7.173,
+    "COP": 4024.18,
+    "CRC": 504.694129,
+    "CUC": 1,
+    "CUP": 25.75,
+    "CVE": 95.55,
+    "CZK": 21.1756,
+    "DJF": 178,
+    "DKK": 6.412341,
+    "DOP": 60.285,
+    "DZD": 130.175348,
+    "EGP": 49.4207,
+    "ERN": 15,
+    "ETB": 136.55,
+    "EUR": 0.859183,
+    "FJD": 2.2538,
+    "FKP": 0.745049,
+    "GBP": 0.745049,
+    "GEL": 2.71,
+    "GGP": 0.745049,
+    "GHS": 10.4,
+    "GIP": 0.745049,
+    "GMD": 71.500007,
+    "GNF": 8656,
+    "GTQ": 7.674625,
+    "GYD": 209.258943,
+    "HKD": 7.84993,
+    "HNL": 26.35,
+    "HRK": 6.474715,
+    "HTG": 131.331289,
+    "HUF": 343.244271,
+    "IDR": 16308.174261,
+    "ILS": 3.35976,
+    "IMP": 0.745049,
+    "INR": 85.892841,
+    "IQD": 1310,
+    "IRR": 42125,
+    "ISK": 122.09,
+    "JEP": 0.745049,
+    "JMD": 159.941089,
+    "JOD": 0.709,
+    "JPY": 148.04466667,
+    "KES": 129.5,
+    "KGS": 87.45,
+    "KHR": 4020,
+    "KMF": 424.625088,
+    "KPW": 900,
+    "KRW": 1388.168173,
+    "KWD": 0.305574,
+    "KYD": 0.833509,
+    "KZT": 527.501303,
+    "LAK": 21565,
+    "LBP": 89550,
+    "LKR": 301.62132,
+    "LRD": 201.00003,
+    "LSL": 17.93,
+    "LYD": 5.41,
+    "MAD": 9.0615,
+    "MDL": 16.86919,
+    "MGA": 4430,
+    "MKD": 53.033076,
+    "MMK": 2098,
+    "MNT": 3398,
+    "MOP": 8.087526,
+    "MRU": 39.72,
+    "MUR": 45.649997,
+    "MVR": 15.4,
+    "MWK": 1736.5,
+    "MXN": 18.746468,
+    "MYR": 4.2425,
+    "MZN": 63.959999,
+    "NAD": 17.93,
+    "NGN": 1529.85,
+    "NIO": 36.75,
+    "NOK": 10.243845,
+    "NPR": 137.494932,
+    "NZD": 1.682397,
+    "OMR": 0.384512,
+    "PAB": 1,
+    "PEN": 3.554,
+    "PGK": 4.13325,
+    "PHP": 57.000716,
+    "PKR": 284.65,
+    "PLN": 3.655973,
+    "PYG": 7745.336654,
+    "QAR": 3.6406,
+    "RON": 4.358,
+    "RSD": 100.639,
+    "RUB": 78.247635,
+    "RWF": 1436.5,
+    "SAR": 3.750677,
+    "SBD": 8.31956,
+    "SCR": 14.550094,
+    "SDG": 600.5,
+    "SEK": 9.71082,
+    "SGD": 1.283065,
+    "SHP": 0.745049,
+    "SLL": 20969.5,
+    "SOS": 571.5,
+    "SRD": 37.4645,
+    "SSP": 130.26,
+    "STD": 22281.8,
+    "STN": 21.35,
+    "SVC": 8.75169,
+    "SYP": 13002,
+    "SZL": 17.93,
+    "THB": 32.4725,
+    "TJS": 9.577133,
+    "TMT": 3.51,
+    "TND": 2.9025,
+    "TOP": 2.40776,
+    "TRY": 40.249101,
+    "TTD": 6.786943,
+    "TWD": 29.381501,
+    "TZS": 2615,
+    "UAH": 41.88476,
+    "UGX": 3584.193759,
+    "USD": 1,
+    "UYU": 40.451049,
+    "UZS": 12795,
+    "VES": 115.699818,
+    "VND": 26157.467957,
+    "VUV": 118.722,
+    "WST": 2.8,
+    "XAF": 563.587245,
+    "XAG": 0.02645338,
+    "XAU": 0.00029859,
+    "XCD": 2.70255,
+    "XDR": 0.702806,
+    "XOF": 563.587245,
+    "XPD": 0.0007801,
+    "XPF": 102.52783,
+    "XPT": 0.00070337,
+    "YER": 241.349992,
+    "ZAR": 17.825751,
+    "ZMW": 22.805387,
+    "ZWL": 322
+  }
+}`))
+	}))
+	defer testSrv.Close()
+	httpclient.OER_URL = testSrv.URL + "?app_id=%s&base=USD&prettyprint=true&show_alternative=false"
+	gin.SetMode(gin.TestMode)
+	router := gin.Default()
+	router.GET("/rates", Rates)
+
+	tests := []struct {
+		name           string
+		query          string
+		expectedStatus int
+		expectedBody   string
+	}{
+		{
+			name:           "valid request",
+			query:          "currencies=PLN,EUR",
+			expectedStatus: http.StatusOK,
+			expectedBody:   `[{"from":"PLN","to":"EUR","rate":4.255173810468782},{"from":"EUR","to":"PLN","rate":0.23500802659100603}]`,
+		},
+		{
+			name:           "invalid request",
+			query:          "currencies=USD",
+			expectedStatus: http.StatusBadRequest,
+			expectedBody:   "",
+		},
+	}
+	for _, tt := range tests {
+		req, _ := http.NewRequest(http.MethodGet, "/rates?"+tt.query, nil)
+		w := httptest.NewRecorder()
+		// when
+		router.ServeHTTP(w, req)
+		// then
+		if w.Code != tt.expectedStatus {
+			t.Errorf("Expected status %d, got %d", tt.expectedStatus, w.Code)
+		}
+		if strings.TrimSpace(tt.expectedBody) != strings.TrimSpace(w.Body.String()) {
+			t.Errorf("Expected body differs from response: %s", w.Body.String())
+		}
+
+	}
+}

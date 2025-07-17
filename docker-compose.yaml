@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  cc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cc-rest-api:0.1
+    ports:
+      - "9090:9090"
+    environment:
+      - OER_APP_ID=${OER_APP_ID}
+
